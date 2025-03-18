@@ -1,0 +1,13 @@
+create table watermark_table(
+	last_load varchar(100) not null
+)
+
+create procedure watermark_procdure
+	@max_load varchar(100)
+AS
+	BEGIN
+		BEGIN TRANSACTION
+			UPDATE [dbo].[watermark_table]
+			SET last_load = @max_load
+		COMMIT TRANSACTION;
+	END;
